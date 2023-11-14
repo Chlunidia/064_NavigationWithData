@@ -42,6 +42,10 @@ class OrderViewModel : ViewModel() {
         _stateUI.value = OrderUIState()
     }
 
+    fun resetContact () {
+        _stateUI.value = OrderUIState()
+    }
+
     private fun calculatePrice (quantity : Int = _stateUI.value.quantity) : String {
         val priceCalculation = quantity * PRICE_PER_CUP
         return NumberFormat.getNumberInstance().format(priceCalculation)
