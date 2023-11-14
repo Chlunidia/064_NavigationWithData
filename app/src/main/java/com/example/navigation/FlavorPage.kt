@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,7 +31,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FirstPage(
+fun FlavorPage(
     flavorChoice : List<String>,
     onSelectionChanged : (String) -> Unit,
     onConfirmButtonClicked : (Int) -> Unit,
@@ -38,8 +39,8 @@ fun FirstPage(
     onCencelButtonClicked : () -> Unit,
     modifier : Modifier = Modifier
 ) {
-    var textSelectedFlavor by rememberSaveable { mutableStateOf("") }
-    var textPurchaseQuantity by rememberSaveable { mutableStateOf("") }
+    var textSelectedFlavor by remember { mutableStateOf("") }
+    var textPurchaseQuantity by remember { mutableStateOf("") }
     Column (modifier = modifier,
         verticalArrangement = Arrangement.SpaceBetween) {
         Column (modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
