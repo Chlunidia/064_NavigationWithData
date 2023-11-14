@@ -2,11 +2,14 @@ package com.example.navigation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,12 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.navigation.data.OrderUIState
+import com.example.navigation.ui.theme.NavigationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactPage(
-    onSubmitButtonClicked: (MutableList<String>) -> Unit
-){
+    onSubmitButtonClicked: (OrderUIState) -> Unit,
+    onCancelButtonClicked: () -> Unit,
+) {
     var txtName by remember {
         mutableStateOf("")
     }
@@ -33,15 +40,14 @@ fun ContactPage(
     var txtTlp by remember {
         mutableStateOf("")
     }
-    var listDataTxt: MutableList<String> = mutableListOf(txtName, txtAddress, txtTlp)
 
-    Column (
+    Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.padding_medium))
             .fillMaxSize()
-    ){
+    ) {
         OutlinedTextField(
             value = txtName,
             onValueChange = { txtName = it },
@@ -64,8 +70,29 @@ fun ContactPage(
             }
         )
         Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)))
-        Button(onClick = { onSubmitButtonClicked(listDataTxt) }) {
-            Text(text = stringResource(id = R.string.btn_submit))
+        Row(
+            modifier = Modifier
+                .weight(1f, false)
+                .padding(dimensionResource(R.dimen.padding_medium)),
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+        ) {
+            OutlinedButton(
+                onClick = onCancelButtonClicked
+            ) {
+                Text(stringResource(R.string.cancel))
+            }
+            Button(
+                onClick = {
+                    val orderUIState = OrderUIState(
+                        name = txtName,
+                        address = txtAddress,
+                        tlp = txtTlp
+                    )
+                    onSubmitButtonClicked(orderUIState)
+                }
+            ) {
+                Text(text = stringResource(id = R.string.btn_submit))
+            }
         }
     }
 }
