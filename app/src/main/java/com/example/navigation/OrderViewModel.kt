@@ -13,14 +13,12 @@ class OrderViewModel : ViewModel() {
     private val _stateUI = MutableStateFlow(OrderUIState())
     val stateUI : StateFlow<OrderUIState> = _stateUI.asStateFlow()
 
-    fun setContact(listData: MutableList<String>) {
-        _stateUI.update { currentState ->
-            currentState.copy(
-                name = listData[0],
-                address = listData[1],
-                tlp = listData[2]
-            )
-        }
+    fun setContact(orderUIState: OrderUIState) {
+        _stateUI.value = _stateUI.value.copy(
+            name = orderUIState.name,
+            address = orderUIState.address,
+            tlp = orderUIState.tlp
+        )
     }
 
     fun setQuantity(iceQuantity : Int){
