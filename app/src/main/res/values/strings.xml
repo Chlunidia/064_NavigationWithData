@@ -15,4 +15,8 @@
     <string name="flavor">Flavor</string>
     <string name="subtotal">Subtotal: Rp %s</string>
     <string name="total">Total: %s</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="tlp">Telephone</string>
+    <string name="btn_submit">Submit</string>
 </resources>
